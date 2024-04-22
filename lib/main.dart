@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:human_resource/view/personel/personel_list.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
+  sqfliteFfiInit();
+
+
   runApp(const MyApp());
 }
 
@@ -9,8 +15,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(body: Container()),
+    return const GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: PersonelListPage(),
     );
   }
 }
