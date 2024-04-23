@@ -2,6 +2,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:human_resource/utils/arrays.dart';
 import 'package:human_resource/utils/components.dart';
 import 'package:human_resource/view/personel/personel_add_page.dart';
 import 'package:human_resource/view/personel/personel_update_page.dart';
@@ -17,6 +18,7 @@ class PersonelListPage extends StatefulWidget {
 class _PersonelListPageState extends State<PersonelListPage> {
 
   final PersonelViewModel _personelViewModel = Get.put(PersonelViewModel());
+  final UnvanList _unvanList = UnvanList();
 
   @override
   void initState() {
@@ -86,7 +88,7 @@ class _PersonelListPageState extends State<PersonelListPage> {
                         ),
                         DataColumn2(
                           label: Text('Ünvanı'),
-                          size: ColumnSize.S,
+                          size: ColumnSize.M,
                         ),
                         DataColumn2(
                           label: Text(''),
@@ -106,7 +108,7 @@ class _PersonelListPageState extends State<PersonelListPage> {
                           DataCell(Text(_personelViewModel.personelList[i].hitap == 1 ? "Bey" : "Hanım")),
                           DataCell(Text(_personelViewModel.personelList[i].email.toString())),
                           DataCell(Text(_personelViewModel.personelList[i].cepTel.toString())),
-                          DataCell(Text(_personelViewModel.personelList[i].unvanId.toString())),
+                          DataCell(Text(_unvanList.unvanlar[_personelViewModel.personelList[i].unvanId! -1])),
                           DataCell(Row(
                             children: [
                               GestureDetector(

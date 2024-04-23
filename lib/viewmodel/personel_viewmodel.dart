@@ -6,7 +6,7 @@ import 'package:human_resource/view/personel/personel_list_page.dart';
 
 class PersonelViewModel extends GetxController{
 
-  final PersonelDatabase _databaseMethod = PersonelDatabase();
+  final PersonelDatabase _personelDatabase = PersonelDatabase();
   RxList<Personel> personelList = <Personel>[].obs;
   RxBool isLoading = true.obs;
 
@@ -23,19 +23,19 @@ class PersonelViewModel extends GetxController{
 
 
   init() async{
-    await _databaseMethod.open();
+    await _personelDatabase.open();
     await getPersonelList();
     isLoading.value = false;
   }
 
   Future<void> getPersonelList() async{
-    final result = await _databaseMethod.getList();
+    final result = await _personelDatabase.getList();
     personelList.clear();
     personelList.addAll(result.map((json) => Personel.fromJson(json)));
   }
 
   Future<void> insertPersonel(Personel personel) async{
-    var personelId = await _databaseMethod.insert(personel);
+    var personelId = await _personelDatabase.insert(personel);
 
     if(personelId == 0){
       // Veri ekleme işleminde hata oluştu.
@@ -57,7 +57,7 @@ class PersonelViewModel extends GetxController{
   }
 
   Future<void> deletePersonel(int id) async{
-    var result = await _databaseMethod.delete(id);
+    var result = await _personelDatabase.delete(id);
 
     if(result == 0){
       // Veri silme işleminde hata oluştu
@@ -67,19 +67,16 @@ class PersonelViewModel extends GetxController{
   }
 
   Future<Personel> getPersonel(int id) async{
-    final result = await _databaseMethod.get(id);
+    final result = await _personelDatabase.get(id);
     return Personel.fromJson(result);
   }
 
   Future<void> updatePersonel(int id, Personel personel) async{
-    var personelId = await _databaseMethod.update(id, personel);
+    var personelId = await _personelDatabase.update(id, personel);
 
     if(personelId == 0){
       // Veri güncelleme işleminde hata oluştu.
     }else{
-      // personel.id = personelId;
-      // personelList.add(personel);
-
       adController.clear();
       iseGirisController.clear();
       telefonController.clear();

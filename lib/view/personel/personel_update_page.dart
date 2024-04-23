@@ -92,7 +92,7 @@ class _PersonelUpdatePageState extends State<PersonelUpdatePage> {
     _personelViewModel.adController.text = personel.adi!;
     _cityViewModel.secilenSehir.value = _cityViewModel.sehirler[personel.il! - 1];
     _cityViewModel.ilceListeAl(_cityViewModel.secilenSehir.value);
-     _cityViewModel.secilenIlce.value = _cityViewModel.ilceler[personel.ilce! - 1];
+    _cityViewModel.secilenIlce.value = _cityViewModel.ilceler[personel.ilce! - 1];
     _personelViewModel.iseGirisController.text = '${personel.iseGiris!.day} - ${personel.iseGiris!.month} - ${personel.iseGiris!.year} ${personel.iseGiris!.hour}:${personel.iseGiris!.minute}';
     personel.istenCikis != null ? _personelViewModel.isCikisController.text = '${personel.istenCikis!.day} - ${personel.istenCikis!.month} - ${personel.istenCikis!.year} ${personel.istenCikis!.hour}:${personel.istenCikis!.minute}' : _personelViewModel.isCikisController.text = '';
     _personelViewModel.telefonController.text = personel.cepTel!;
