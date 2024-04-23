@@ -21,9 +21,9 @@ class PersonelDatabase{
     return personelList;
   }
 
-  Future<dynamic> get(int id) async{
-    dynamic personel = await _database!.query("Personel", where: 'id=?', columns: ['id'], whereArgs: [id]);
-    return personel;
+  Future<Map<String, dynamic>> get(int id) async {
+    List<Map<String, dynamic>> results = await _database!.query("Personel", where: 'id = ?', whereArgs: [id]);
+    return results.first;
   }
 
   Future<int> insert(Personel model) async {
@@ -31,8 +31,9 @@ class PersonelDatabase{
     return result;
   }
 
-  Future<void> update(int id, Personel model) async{
-    await _database!.update("Personel", model.toJson(), where: 'id=?', whereArgs: [id]);
+  Future<int> update(int id, Personel model) async{
+    final result = await _database!.update("Personel", model.toJson(), where: 'id=?', whereArgs: [id]);
+    return result;
   }
 
   Future<int> delete(int id) async{

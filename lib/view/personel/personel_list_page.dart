@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:human_resource/utils/components.dart';
 import 'package:human_resource/view/personel/personel_add_page.dart';
+import 'package:human_resource/view/personel/personel_update_page.dart';
 import 'package:human_resource/viewmodel/personel_viewmodel.dart';
 
 class PersonelListPage extends StatefulWidget {
@@ -108,7 +109,10 @@ class _PersonelListPageState extends State<PersonelListPage> {
                           DataCell(Text(_personelViewModel.personelList[i].unvanId.toString())),
                           DataCell(Row(
                             children: [
-                              butonContainer('Güncelle', Colors.green),
+                              GestureDetector(
+                                onTap: (){ Get.to(() => PersonelUpdatePage(id: _personelViewModel.personelList[i].id!)); },
+                                child: butonContainer('Güncelle', Colors.green),
+                              ),
                               const SizedBox(width:8),
                               GestureDetector(
                                 onTap: (){ _personelViewModel.deletePersonel(_personelViewModel.personelList[i].id!); },

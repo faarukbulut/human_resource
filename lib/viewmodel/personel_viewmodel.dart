@@ -13,6 +13,7 @@ class PersonelViewModel extends GetxController{
   final formKey = GlobalKey<FormState>();
   final TextEditingController adController = TextEditingController();
   final TextEditingController iseGirisController = TextEditingController();
+  final TextEditingController isCikisController = TextEditingController();
   final TextEditingController telefonController = TextEditingController();
   final TextEditingController ePostaController = TextEditingController();
   RxInt secilenHitap = 0.obs;
@@ -65,5 +66,31 @@ class PersonelViewModel extends GetxController{
     }
   }
 
+  Future<Personel> getPersonel(int id) async{
+    final result = await _databaseMethod.get(id);
+    return Personel.fromJson(result);
+  }
+
+  Future<void> updatePersonel(int id, Personel personel) async{
+    var personelId = await _databaseMethod.update(id, personel);
+
+    if(personelId == 0){
+      // Veri güncelleme işleminde hata oluştu.
+    }else{
+      // personel.id = personelId;
+      // personelList.add(personel);
+
+      adController.clear();
+      iseGirisController.clear();
+      telefonController.clear();
+      ePostaController.clear();
+      unvanSearchController.clear();
+      secilenHitap.value = 0;
+      secilenKvkk.value = false;
+      secilenUnvan.value = "";
+    }
+
+    Get.offAll(() => const PersonelListPage());    
+  }
 
 }
