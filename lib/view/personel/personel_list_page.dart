@@ -2,7 +2,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:human_resource/components/widget.dart';
+import 'package:human_resource/utils/components.dart';
+import 'package:human_resource/view/personel/personel_add_page.dart';
 import 'package:human_resource/viewmodel/personel_viewmodel.dart';
 
 class PersonelListPage extends StatefulWidget {
@@ -36,7 +37,7 @@ class _PersonelListPageState extends State<PersonelListPage> {
                   const Text('Personel Bilgileri', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue)),
                   const Spacer(),
                   GestureDetector(
-                    onTap: (){ _personelViewModel.insertPersonel(); },
+                    onTap: (){ Get.to(() => const PersonelAddPage()); },
                     child: butonContainer('Yeni Ekle', Colors.deepPurple),
                   )
                 ],
@@ -101,7 +102,7 @@ class _PersonelListPageState extends State<PersonelListPage> {
                             ),
                           ),
                           DataCell(Text(_personelViewModel.personelList[i].adi.toString())),
-                          DataCell(Text(_personelViewModel.personelList[i].hitap == 0 ? "Bey" : "Hanım")),
+                          DataCell(Text(_personelViewModel.personelList[i].hitap == 1 ? "Bey" : "Hanım")),
                           DataCell(Text(_personelViewModel.personelList[i].email.toString())),
                           DataCell(Text(_personelViewModel.personelList[i].cepTel.toString())),
                           DataCell(Text(_personelViewModel.personelList[i].unvanId.toString())),
@@ -109,7 +110,10 @@ class _PersonelListPageState extends State<PersonelListPage> {
                             children: [
                               butonContainer('Güncelle', Colors.green),
                               const SizedBox(width:8),
-                              butonContainer('Sil', Colors.red),
+                              GestureDetector(
+                                onTap: (){ _personelViewModel.deletePersonel(_personelViewModel.personelList[i].id!); },
+                                child: butonContainer('Sil', Colors.red),
+                              ),
                             ],
                           )),
                         ]

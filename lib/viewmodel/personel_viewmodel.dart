@@ -1,12 +1,24 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:human_resource/model/personels/personel.dart';
 import 'package:human_resource/services/personel_database.dart';
+import 'package:human_resource/view/personel/personel_list_page.dart';
 
 class PersonelViewModel extends GetxController{
 
-  final PersonelDatabaseMethod _databaseMethod = PersonelDatabaseMethod();
+  final PersonelDatabase _databaseMethod = PersonelDatabase();
   RxList<Personel> personelList = <Personel>[].obs;
   RxBool isLoading = true.obs;
+
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController adController = TextEditingController();
+  final TextEditingController iseGirisController = TextEditingController();
+  final TextEditingController telefonController = TextEditingController();
+  final TextEditingController ePostaController = TextEditingController();
+  RxInt secilenHitap = 0.obs;
+  RxBool secilenKvkk = false.obs;
+  RxString secilenUnvan = "".obs;
+  final TextEditingController unvanSearchController = TextEditingController();
 
 
   init() async{
@@ -21,20 +33,7 @@ class PersonelViewModel extends GetxController{
     personelList.addAll(result.map((json) => Personel.fromJson(json)));
   }
 
-  Future<void> insertPersonel() async{
-
-    Personel personel = Personel(
-      adi: 'Faruk Bulut',
-      il: 09,
-      ilce: 01,
-      iseGiris: DateTime.now(),
-      istenCikis: null,
-      cepTel: '05350535226',
-      email: 'faarukbulut@gmail.com',
-      hitap: 0,
-      kvkk: true,
-      unvanId: 2,
-    );
+  Future<void> insertPersonel(Personel personel) async{
 
     var personelId = await _databaseMethod.insert(personel);
 
@@ -45,6 +44,12 @@ class PersonelViewModel extends GetxController{
       personelList.add(personel);
     }
 
+    Get.off(() => const PersonelListPage());
   }
+
+  Future<void> deletePersonel(int id) async{
+    await _databaseMethod.delete(id);
+  }
+
 
 }

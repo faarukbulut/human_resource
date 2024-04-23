@@ -1,7 +1,7 @@
 import 'package:human_resource/model/personels/personel.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-class PersonelDatabaseMethod{
+class PersonelDatabase{
   var databaseFactory = databaseFactoryFfi;
   Database? _database;
 
