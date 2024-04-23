@@ -34,7 +34,6 @@ class PersonelViewModel extends GetxController{
   }
 
   Future<void> insertPersonel(Personel personel) async{
-
     var personelId = await _databaseMethod.insert(personel);
 
     if(personelId == 0){
@@ -42,13 +41,28 @@ class PersonelViewModel extends GetxController{
     }else{
       personel.id = personelId;
       personelList.add(personel);
+
+      adController.clear();
+      iseGirisController.clear();
+      telefonController.clear();
+      ePostaController.clear();
+      unvanSearchController.clear();
+      secilenHitap.value = 0;
+      secilenKvkk.value = false;
+      secilenUnvan.value = "";
     }
 
-    Get.off(() => const PersonelListPage());
+    Get.offAll(() => const PersonelListPage());
   }
 
   Future<void> deletePersonel(int id) async{
-    await _databaseMethod.delete(id);
+    var result = await _databaseMethod.delete(id);
+
+    if(result == 0){
+      // Veri silme işleminde hata oluştu
+    }else{
+      personelList.removeWhere((personel) => personel.id == id);
+    }
   }
 
 

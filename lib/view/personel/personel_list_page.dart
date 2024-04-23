@@ -51,7 +51,7 @@ class _PersonelListPageState extends State<PersonelListPage> {
                 const Center(child: CircularProgressIndicator()) :
                 
                 _personelViewModel.personelList.isEmpty ?
-                const Center(child: Text('Kayıt Bulunamdı.')) :
+                const Center(child: Text('Kayıt Bulunamadı.')) :
 
                 Expanded(
                   child: DataTable2(

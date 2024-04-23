@@ -35,8 +35,9 @@ class PersonelDatabase{
     await _database!.update("Personel", model.toJson(), where: 'id=?', whereArgs: [id]);
   }
 
-  Future<void> delete(int id) async{
-    await _database!.delete("Personel", where: 'id=?', whereArgs: [id]);
+  Future<int> delete(int id) async{
+    var result = await _database!.delete("Personel", where: 'id=?', whereArgs: [id]);
+    return result;
   }
 
   Future<void> close() async{
